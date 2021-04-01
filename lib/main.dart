@@ -46,21 +46,21 @@ class _CounterScreenState extends State<CounterScreen> {
             onPressed: () {
               print("Botão Pressionado");
               setState(() {
-                resultado += 1;
-              });
-            },
-            child: Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              print("Botão Pressionado");
-              setState(() {
                 if (resultado > 0) {
                   resultado -= 1;
                 }
               });
             },
             child: Icon(Icons.remove),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              print("Botão Pressionado");
+              setState(() {
+                resultado += 1;
+              });
+            },
+            child: Icon(Icons.add),
           ),
         ],
       ),
