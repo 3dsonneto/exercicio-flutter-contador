@@ -30,6 +30,10 @@ class _CounterScreenState extends State<CounterScreen> {
     return num1 - num2;
   }
 
+  int mul(num1, num2) {
+    return num1 * num2 * 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +72,9 @@ class _CounterScreenState extends State<CounterScreen> {
             },
             Icon(Icons.add),
           ),
+          OperationFloatActionButton(() {
+            _operation(mul);
+          }, Icon(Icons.star))
         ],
       ),
     );
