@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'counter_controller.dart';
 
 void main() {
   runApp(
@@ -14,25 +15,7 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
-  var resultado = 0;
-
-  void _operation(Function(int, int) func) {
-    setState(() {
-      resultado = func(resultado, 1);
-    });
-  }
-
-  int add(num1, num2) {
-    return num1 + num2;
-  }
-
-  int sub(num1, num2) {
-    return num1 - num2;
-  }
-
-  int mul(num1, num2) {
-    return num1 * num2 * 2;
-  }
+  final controller = CounterController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +34,7 @@ class _CounterScreenState extends State<CounterScreen> {
           ),
           Center(
             child: Text(
-              "$resultado",
+              controller.getCounter(),
               style: TextStyle(fontSize: 34),
             ),
           ),
@@ -62,19 +45,20 @@ class _CounterScreenState extends State<CounterScreen> {
         children: [
           OperationFloatActionButton(
             () {
-              _operation(sub);
+              setState(() {
+                controller.decreaseCounter();
+              });
             },
             Icon(Icons.remove),
           ),
           OperationFloatActionButton(
             () {
-              _operation(add);
+              setState(() {
+                controller.incrementCounter();
+              });
             },
             Icon(Icons.add),
           ),
-          OperationFloatActionButton(() {
-            _operation(mul);
-          }, Icon(Icons.star))
         ],
       ),
     );
