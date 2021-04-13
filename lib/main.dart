@@ -16,6 +16,19 @@ class CounterScreen extends StatefulWidget {
 class _CounterScreenState extends State<CounterScreen> {
   var resultado = 0;
 
+  void _operation(String operation) {
+    int novoResultado;
+    if (operation == "soma") {
+      novoResultado = resultado + 1;
+    } else if (operation == "sub") {
+      novoResultado = resultado - 1;
+    }
+
+    setState(() {
+      resultado = novoResultado;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,21 +57,13 @@ class _CounterScreenState extends State<CounterScreen> {
         children: [
           OperationFloatActionButton(
             () {
-              setState(() {
-                if (resultado > 0) {
-                  resultado -= 1;
-                }
-              });
+              _operation("sub");
             },
             Icon(Icons.remove),
           ),
           OperationFloatActionButton(
             () {
-              setState(
-                () {
-                  resultado += 1;
-                },
-              );
+              _operation("soma");
             },
             Icon(Icons.add),
           ),
