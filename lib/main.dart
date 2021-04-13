@@ -16,6 +16,24 @@ class CounterScreen extends StatefulWidget {
 class _CounterScreenState extends State<CounterScreen> {
   var resultado = 0;
 
+  void _operation(Function(int, int) func) {
+    setState(() {
+      resultado = func(resultado, 1);
+    });
+  }
+
+  int add(num1, num2) {
+    return num1 + num2;
+  }
+
+  int sub(num1, num2) {
+    return num1 - num2;
+  }
+
+  int mul(num1, num2) {
+    return num1 * num2 * 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,28 +60,38 @@ class _CounterScreenState extends State<CounterScreen> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            onPressed: () {
-              print("Botão Pressionado");
-              setState(() {
-                if (resultado > 0) {
-                  resultado -= 1;
-                }
-              });
+          OperationFloatActionButton(
+            () {
+              _operation(sub);
             },
-            child: Icon(Icons.remove),
+            Icon(Icons.remove),
           ),
-          FloatingActionButton(
-            onPressed: () {
-              print("Botão Pressionado");
-              setState(() {
-                resultado += 1;
-              });
+          OperationFloatActionButton(
+            () {
+              _operation(add);
             },
-            child: Icon(Icons.add),
+            Icon(Icons.add),
           ),
+          OperationFloatActionButton(() {
+            _operation(mul);
+          }, Icon(Icons.star))
         ],
       ),
+    );
+  }
+}
+
+class OperationFloatActionButton extends StatelessWidget {
+  final Function func;
+  final Icon icon;
+
+  OperationFloatActionButton(this.func, this.icon, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: func,
+      child: icon,
     );
   }
 }
